@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: baget-deployment
+  namespace: baget
+  labels:
+    app: baget-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: baget-server
+  template:
+    metadata:
+      labels:
+        app: baget-server
+    spec:
+      containers:
+# ----------------------------------------------------------------------------
+# Baget Server
+      - name: nugetserver
+        image: idoop/docker-nuget-server
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ApiKey
+          value: "bTKxwpAqFqQ8dbhRnp7h"
+        - name: UPLOAD_MAX_FILESIZE
+          value: "40M"
+        - name: WORKER_PROCESSES
+          value: "2"
+        - name: SERVER_NAME
+          value: "nuget.tabrasa.io"
+        volumeMounts:
+          - name: nuget-db
+            mountPath: /nuget/db
+          - name: nuget-packagefiles
+            mountPath: /nuget/packagefiles
+      volumes:
+        - name: nuget-db
+          persistentVolumeClaim:
+            claimName: baget-db-claim 
+        - name: nuget-packagefiles
+          persistentVolumeClaim:
+            claimName: baget-packages-claim            

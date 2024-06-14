@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: baget-ingress
+  namespace: nu
+spec:
+  tls:
+  - hosts:
+      - nuget.vantageproduction2.com
+    secretName: nuget-tls
+  rules:
+  - host: nuget.vantageproduction2.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: baget-service
+            port:
+              number: 80
