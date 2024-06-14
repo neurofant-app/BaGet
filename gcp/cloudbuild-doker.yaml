@@ -13,7 +13,7 @@ steps:
   secretEnv: ['USERNAME']
 availableSecrets:
   secretManager:
-  - versionName: projects/94741197651/secrets/DOCKER_PASSWORD_SECRET_NAME
+  - versionName: projects/94741197651/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/latest
     env: 'PASSWORD'
-  - versionName: projects/94741197651/secrets/DOCKER_USERNAME_SECRET_NAME
+  - versionName: projects/94741197651/secrets/DOCKER_USERNAME_SECRET_NAME/versions/latest
     env: 'USERNAME'
