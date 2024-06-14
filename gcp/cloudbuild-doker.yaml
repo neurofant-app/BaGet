@@ -1,19 +1,7 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
-  secretEnv: ['USERNAME', 'PASSWORD']
+  args: ['-c', 'docker build -t us-central1-docker.pkg.dev/development-internal-233813/tabrasa-docker/baget-fork:8.0 -f ./Dockerfile .']
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker build -t $$USERNAME/baget-fork:8.0 -f ./Dockerfile .']
-  secretEnv: ['USERNAME']
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args: ['-c', 'docker push $$USERNAME/baget-fork:8.0']
-  secretEnv: ['USERNAME']
-availableSecrets:
-  secretManager:
-  - versionName: projects/94741197651/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/latest
-    env: 'PASSWORD'
-  - versionName: projects/94741197651/secrets/DOCKER_USERNAME_SECRET_NAME/versions/latest
-    env: 'USERNAME'
+  args: ['-c', 'docker push us-central1-docker.pkg.dev/development-internal-233813/tabrasa-docker/baget-fork:8.0']
