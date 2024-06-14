@@ -1,15 +1,15 @@
 steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker login --username=$$_USER --password=$$_PASS']
+  args: ['-c', 'docker login --username=${_USER} --password=${_PASS}']
 #  secretEnv: ['USERNAME', 'PASSWORD']
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker build -t $$_USER/baget-fork:8.0 -f ./Dockerfile .']
+  args: ['-c', 'docker build -t ${_USER}/baget-fork:8.0 -f ./Dockerfile .']
 #  secretEnv: ['USERNAME']
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker push $$_USER/baget-fork:8.0']
+  args: ['-c', 'docker push ${_USER}/baget-fork:8.0']
 #  secretEnv: ['USERNAME']
 availableSecrets:
   # secretManager:
